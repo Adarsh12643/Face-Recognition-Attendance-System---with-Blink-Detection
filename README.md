@@ -3,69 +3,77 @@
 # Face-Recognition-Attendance-System---with-Blink-Detection
 The facial recognition attendance system is designed to modernize and secure the attendance tracking  process in educational institutions. It addresses the limitations of traditional methods by automating the  process, reducing human error, and preventing fraudulent attendance. 
 
-## 🚀 Key Features
+## 🌟 Key Features
 
-* **Multi-Device Registration:** Students can enroll from any device by logging in with their unique **College ID and Password**.
-* **Liveness Detection:** Integrated **Blink Detection** (Eye Aspect Ratio - EAR) to prevent spoofing using photos or videos.
-* **Microservices Architecture:** Uses **React** for the frontend, **Node.js/Express** for the backend gateway, and **Python** for AI processing.
-* **Instant Notifications:** Real-time **Email alerts** (and optional SMS) sent to students upon successful attendance marking.
-* **Compact Deployment:** Optimized to run on small-form-factor devices like **Raspberry Pi 5** or **NVIDIA Jetson Nano**.
-* **Startup Optimization:** Uses **Pickle serialization** to load hundreds of face encodings in milliseconds.
+* **Real-time Face Recognition:** Identifies students using pre-encoded facial signatures.
+* **Blink Detection (Liveness Check):** Uses the **Eye Aspect Ratio (EAR)** and 68 facial landmarks to verify the person is real and not a photograph.
+* **Automatic Email Notifications:** Sends a free, automated email to the student (via SMTP) confirming their attendance time and status (On-Time/Late).
+* **Performance Optimized:** Employs background threading and **Pickle serialization** to ensure the camera feed remains smooth even with large student databases.
+* **Dynamic Dashboard:** A modern, dark-themed UI that displays live statistics, attendance rates, and a real-time log.
 
-## 🏗️ System Architecture
+## 🛠️ Technical Stack
 
-The project is split into three main components:
+* **Language:** Python 3.x
+* **Framework:** Flask (Web Interface)
+* **AI Libraries:** * `face_recognition` (Identity matching)
+* `dlib` (68-landmark detection)
+* `OpenCV` (Video processing)
 
-1. **Frontend (React):** A responsive dashboard for student registration and admin monitoring.
-2. **Backend (Node.js & MongoDB):** Manages student databases, authentication (ID/Password), and serves as a bridge to the AI engine.
-3. **AI Service (Python):** Handles the "heavy lifting" using `OpenCV`, `dlib`, and `face_recognition` for biometric verification.
 
-## 🛠️ Hardware Requirements
+* **Communication:** `smtplib` (Email delivery)
+* **Data Handling:** `Pickle` (Encoding storage) and `Pandas` (Log management)
 
-For a professional college station, we recommend:
+## 📦 Installation
 
-* **Compute:** Raspberry Pi 5 (8GB RAM).
-* **Camera:** Raspberry Pi Camera Module 3 or 1080p USB Webcam.
-* **Display:** 7" DSI Touchscreen for the user interface.
-* **Lighting:** Consistent LED ring light for accurate landmark detection.
+### 1. Prerequisites
 
-## 💻 Tech Stack
+Ensure you have the facial landmark predictor file:
 
-* **Frontend:** React.js, Tailwind CSS
-* **Backend:** Node.js, Express.js
-* **Database:** MongoDB (Student Profiles & Logs)
-* **AI/ML:** Python, OpenCV, Dlib (68 Facial Landmarks), face_recognition
-* **Communication:** Socket.io (Real-time updates), SMTP (Email Notifications)
+* Download `shape_predictor_68_face_landmarks.dat` and place it in the project root.
 
-## 🔧 Installation & Setup
+### 2. Install Dependencies
 
-1. **Clone the Repo:**
 ```bash
-git clone https://github.com/yourusername/college-attendance-system.git
+pip install flask opencv-python dlib face_recognition pandas imutils scipy
+
+```
+
+### 3. Setup Known Faces
+
+Create a folder named `known_faces`. Inside, create a subfolder for each student and add their photo:
+
+```text
+/known_faces
+  /John_Doe
+    john.jpg
+  /Jane_Smith
+    jane.jpg
+
+```
+
+## 📧 Email Configuration
+
+To enable email alerts, update the following variables in `app.py`:
+
+* `SENDER_EMAIL`: Your Gmail address.
+* `SENDER_PASSWORD`: Your 16-character **Google App Password**.
+* `STUDENT_EMAIL_BOOK`: A dictionary mapping student names to their email addresses.
+
+## 🚀 Usage
+
+1. Run the application:
+```bash
+python app.py
 
 ```
 
 
-2. **Setup Python AI Service:**
-* Download `shape_predictor_68_face_landmarks.dat`.
-* `pip install opencv-python dlib face_recognition flask imutils`
-* `python app.py`
+2. Open your browser to `http://127.0.0.1:5000`.
+3. Click **"Start Face Recognition"**.
+4. Position your face in the camera view and **blink** to record attendance.
 
+## 🛡️ Security Logic
 
-3. **Setup Node.js Backend:**
-* `cd backend && npm install`
-* Configure your `.env` with MongoDB URI and Email credentials.
-* `npm start`
-
-
-4. **Setup React Frontend:**
-* `cd frontend && npm install`
-* `npm start`
-
-
-
-## 🔒 Security
-
-Face data is converted into a **128-dimensional embedding** (vector). The system stores these mathematical signatures rather than raw images to enhance student privacy.
+Attendance is only marked if the EAR falls below a threshold (approx. 0.22) for several consecutive frames, confirming a physical blink.
 
 ---
