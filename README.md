@@ -1,15 +1,15 @@
----
-
-# Face-Recognition-Attendance-System---with-Blink-Detection
-The facial recognition attendance system is designed to modernize and secure the attendance tracking  process in educational institutions. It addresses the limitations of traditional methods by automating the  process, reducing human error, and preventing fraudulent attendance. 
+# 🎓 Face Attendance with Blink Detection & Email Alerts
+  
+This project is a professional-grade Biometric Attendance System designed for college environments. 
+It utilizes Computer Vision to identify students and verify liveness.
 
 ## 🌟 Key Features
-
-* **Real-time Face Recognition:** Identifies students using pre-encoded facial signatures.
-* **Blink Detection (Liveness Check):** Uses the **Eye Aspect Ratio (EAR)** and 68 facial landmarks to verify the person is real and not a photograph.
-* **Automatic Email Notifications:** Sends a free, automated email to the student (via SMTP) confirming their attendance time and status (On-Time/Late).
-* **Performance Optimized:** Employs background threading and **Pickle serialization** to ensure the camera feed remains smooth even with large student databases.
-* **Dynamic Dashboard:** A modern, dark-themed UI that displays live statistics, attendance rates, and a real-time log.
+  
+  * **Real-time Face Recognition:** Identifies students using pre-encoded facial signatures.
+  * **Blink Detection (Liveness Check):** Uses the Eye Aspect Ratio (EAR) and 68 facial landmarks to verify the person is real.
+  * **Automatic Email Notifications:** Sends an automated email via SMTP confirming attendance status.
+  * **Performance Optimized:** Employs background threading and Pickle serialization.
+  * **Dynamic Dashboard:** A modern, dark-themed UI displaying live statistics.
 
 ## 🛠️ Technical Stack
 
@@ -76,8 +76,6 @@ python app.py
 
 The system uses the **Eye Aspect Ratio (EAR)** formula:
 
-
+$$EAR = \frac{||p_2 - p_6|| + ||p_3 - p_5||}{2||p_1 - p_4||}$$
 
 Attendance is only marked if the EAR falls below a threshold (approx. 0.22) for several consecutive frames, confirming a physical blink.
-
----
