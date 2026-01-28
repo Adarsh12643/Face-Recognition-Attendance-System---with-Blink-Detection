@@ -33,8 +33,8 @@ This ensures that only a "live" person can mark attendance.
 
 1. Prerequisites
 
--> Ensure you have the facial landmark predictor file:
--> Download shape_predictor_68_face_landmarks.dat and place it in the project root.
+* Ensure you have the facial landmark predictor file:
+Download shape_predictor_68_face_landmarks.dat and place it in the project root.
 
 2. Install Dependencies
 
