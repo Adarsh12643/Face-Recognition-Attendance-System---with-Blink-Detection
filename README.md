@@ -1,7 +1,7 @@
 # 🎓 Face Attendance with Blink Detection & Email Alerts
   
 This project is a professional-grade Biometric Attendance System designed for college environments. 
-It utilizes Computer Vision to identify students and verify liveness.
+It utilizes Computer Vision to identify students and verify liveness and send live email alerts.
 
 ## 🌟 Key Features
   
